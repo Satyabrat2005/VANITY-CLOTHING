@@ -1,0 +1,11 @@
+name: vanity_app
+description: A new Flutter project for Vanity Enterprises.
+
+environment:
+  sdk: '^3.8.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Add other dependencies here

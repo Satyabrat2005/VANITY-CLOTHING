@@ -1,6 +1,8 @@
 name: vanity_app
 description: A new Flutter project for Vanity Enterprises.
 
+publish_to: "none" # Remove if publishing to pub.dev
+
 environment:
   sdk: '^3.8.0'
 
@@ -9,4 +11,16 @@ dependencies:
     sdk: flutter
   provider: ^6.1.5
 
-  # Add other dependencies here
+  # You can add more packages like http, camera, image_picker, etc. here
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/clothes/
+    - assets/logos/
+    - assets/icons/

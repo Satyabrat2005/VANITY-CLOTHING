@@ -7,26 +7,34 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[900],
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade800,
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Image.asset(product.imageUrl, fit: BoxFit.cover, width: double.infinity),
+            child: Image.asset(
+              product.imageUrl,
+              fit: BoxFit.contain,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Text(product.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text('₹${product.price.toStringAsFixed(0)}'),
+                Text(product.name,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )),
+                Text("₹${product.price.toStringAsFixed(0)}",
+                    style: const TextStyle(color: Colors.pinkAccent)),
               ],
             ),
-          ),
+          )
         ],
       ),
     );

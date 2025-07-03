@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/product_provider.dart';
+import '../widgets/product_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final products = Provider.of<ProductProvider>(context).products;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("VANITY", style: TextStyle(letterSpacing: 2)),
+        title: const Text(
+          "VANITY",
+          style: TextStyle(letterSpacing: 2, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -20,18 +28,29 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
+
+          // AI Virtual Try-On Banner
           Container(
             height: 200,
             decoration: BoxDecoration(
-              color: Colors.grey.shade900,
+              gradient: const LinearGradient(
+                colors: [Colors.grey, Colors.black],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Center(
-              child: Text("🎥 AI Virtual Try-On Preview Here",
-                  style: TextStyle(color: Colors.white60)),
+              child: Text(
+                "🎥 AI Virtual Try-On Preview Here",
+                style: TextStyle(color: Colors.white60, fontSize: 16),
+              ),
             ),
           ),
+
           const SizedBox(height: 20),
+
+          // Categories Row
           const Text("Categories", style: TextStyle(fontSize: 20)),
           const SizedBox(height: 10),
           SingleChildScrollView(
@@ -45,34 +64,41 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
+
           const SizedBox(height: 20),
+
+          // Featured Products
           const Text("Featured", style: TextStyle(fontSize: 20)),
           const SizedBox(height: 10),
-          GridView.count(
+          GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            children: List.generate(4, (index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade800,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Center(child: Text("👕 Product")),
-              );
-            }),
+            itemCount: products.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 4,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemBuilder: (ctx, index) {
+              return ProductCard(product: products[index]);
+            },
           ),
         ],
       ),
+
+      // Bottom Nav
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         selectedItemColor: Colors.pinkAccent,
         unselectedItemColor: Colors.white54,
+        currentIndex: 0,
+        onTap: (index) {
+          // TODO: Add screen navigation logic here
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Try-On"),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: "Try-On"),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Wishlist"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],

@@ -16,7 +16,7 @@ class VanityApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductProvider()),
-        // Add more providers here like CartProvider, UserProvider etc.
+        // Future providers: CartProvider, UserProvider, TryOnProvider etc.
       ],
       child: MaterialApp(
         title: 'Vanity',
@@ -31,10 +31,21 @@ class VanityApp extends StatelessWidget {
             backgroundColor: Colors.black,
             elevation: 0,
             centerTitle: true,
+            titleTextStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
+              color: Colors.white,
+            ),
+          ),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: Colors.black,
+            selectedItemColor: Color.fromARGB(255, 73, 26, 125),
+            unselectedItemColor: Color.fromARGB(137, 249, 247, 247),
           ),
         ),
         home: const HomeScreen(),
-        // You can add named routes here later
+        // routes: {'/cart': (ctx) => const CartScreen()}, // future routing
       ),
     );
   }
